@@ -12,8 +12,9 @@ def get_vmess(url):
     :param url:
     :return:
     """
-    r = requests.get(url)
-    vmess_content = r.text
+    # r = requests.get(url)
+    # vmess_content = r.text
+    vmess_content = "dm1lc3M6Ly9ldzBLSUNBaWRpSTZJQ0l5SWl3TkNpQWdJbkJ6SWpvZ0lrRnNhV1Z1SWl3TkNpQWdJbUZrWkNJNklDSXhOekV4TWpNeE1qTXhNWFp3TG5Ob2IzQWlMQTBLSUNBaWNHOXlkQ0k2SUNJME5ETWlMQTBLSUNBaWFXUWlPaUFpTUdFMU9EY3lOell0TnpnMU5pMDBaak5rTFRrM1pUZ3RaRGMzT1RCaE5ETTRNMlV5SWl3TkNpQWdJbUZwWkNJNklDSXdJaXdOQ2lBZ0luTmplU0k2SUNKdWIyNWxJaXdOQ2lBZ0ltNWxkQ0k2SUNKM2N5SXNEUW9nSUNKMGVYQmxJam9nSW01dmJtVWlMQTBLSUNBaWFHOXpkQ0k2SUNJaUxBMEtJQ0FpY0dGMGFDSTZJQ0l2Y21GNUlpd05DaUFnSW5Sc2N5STZJQ0owYkhNaUxBMEtJQ0FpYzI1cElqb2dJaUlzRFFvZ0lDSmhiSEJ1SWpvZ0ltaDBkSEF2TVM0eElpd05DaUFnSW1ad0lqb2dJbkpoYm1SdmJTSU5DbjA9"
     if not vmess_content.endswith("=="):
         vmess_content += "=="
 
@@ -113,10 +114,10 @@ def get_rule():
     global config
     with open("config/clash-my-rule.yml") as f:
         my_rule = yaml.safe_load(f)
-    r = requests.get(config.rule_url)
-    rule = yaml.safe_load(r.text)
-    rule = my_rule + rule
-
+    # r = requests.get(config.rule_url)
+    # rule = yaml.safe_load(r.text)
+    # rule = my_rule + rule
+    rule = my_rule
     return rule
 
 
@@ -141,7 +142,8 @@ def get_clash_sub(vmess_url):
     template["Proxy"] = proxies
     template["Proxy Group"] = proxy_groups
     template["Rule"] = rule
-
+    with open('./output.yml', 'w', encoding='utf-8', ) as f:
+        yaml.dump(template, f, encoding='utf-8', allow_unicode=True)
     return yaml.dump(template, sort_keys=False)
 
 
